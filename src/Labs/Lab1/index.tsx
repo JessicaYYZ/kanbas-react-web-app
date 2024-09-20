@@ -188,7 +188,7 @@ export default function Lab1() {
         <form id="wd-text-fields">
           <h5>Text Fields</h5>
           <label htmlFor="wd-text-fields-username">Username:</label>
-          <input id="wd-text-fields-username" placeholder="jdoe" /> <br />
+          <input id="wd-text-fields-username" placeholder="Yuyi Zhang" /> <br />
           <label htmlFor="wd-text-fields-password">Password:</label>
           <input
             type="password"
@@ -355,7 +355,7 @@ export default function Lab1() {
       >
         click here
       </a>
-      to get github project
+      to go to Yuyi Zhang's github
       <br />
     </div>
   );
