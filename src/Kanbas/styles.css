@@ -12,19 +12,17 @@ body * {
   }
 }
 
-/* Styling the active list-group-item */
 .list-group.wd > .list-group-item.active {
-  color: black; /* Text color of the active item */
-  background-color: white; /* White background for the active item */
-  border-left: 3px solid black !important; /* Black border on the left for highlighting */
-  border-color: transparent; /* Make other borders invisible */
+  color: black;
+  background-color: white;
+  border-left: 3px solid black !important;
+  border-color: transparent;
 }
 
-/* Styling other list-group-items */
 .list-group.wd > .list-group-item {
-  color: red; /* Red text for all non-active links */
-  background-color: white; /* White background for all non-active links */
-  border: none; /* Remove borders for non-active items */
+  color: rgb(212, 15, 15);
+  background-color: white;
+  border: none;
 }
 
 .btn-secondary {

@@ -6,7 +6,7 @@ import ModuleControlButtons from "./ModuleControlButtons";
 
 export default function Modules() {
   return (
-    <div style={{ marginLeft: "30px" }}>
+    <div style={{ marginLeft: "0px" }}>
       <ModulesControls />
       <br />
       <br />

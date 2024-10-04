@@ -6,6 +6,7 @@ import KanbasNavigation from "./Navigation";
 import Courses from "./Courses";
 
 import "./styles.css";
+import Assignments from "./Courses/Assignments";
 
 export default function Kanbas() {
   return (

@@ -1,90 +1,173 @@
+import { Link } from "react-router-dom";
+import { FaPlus } from "react-icons/fa6";
+import { IoSearchOutline } from "react-icons/io5";
+import { BsGripVertical } from "react-icons/bs";
+import LessonControlButtons from "./LessonControlButtons";
+import ModuleControlButtons from "./ModuleControlButtons";
+import { AiOutlineFileText } from "react-icons/ai";
+
 export default function Assignments() {
   return (
     <div id="wd-assignments">
-      <input
-        style={{ width: "140px", marginRight: "5px" }}
-        id="wd-search-assignment"
-        placeholder="Search for Assignments"
-      />
-      <button style={{ marginRight: "5px" }} id="wd-add-assignment-group">
-        + Group
-      </button>
-      <button style={{ marginRight: "5px" }} id="wd-add-assignment">
-        + Assignment
-      </button>
-
-      <h3 id="wd-assignments-title">
-        ASSIGNMENTS 40% of Total{" "}
-        <button style={{ marginLeft: "5px" }}>+</button>
-      </h3>
-
-      <ul
-        id="wd-assignment-list"
-        style={{ listStyleType: "disc", paddingLeft: "20px" }}
+      <button
+        id="wd-add-assignemnt-btn"
+        className="btn btn-lg btn-danger me-1 float-end "
       >
-        <li
-          className="wd-assignment-list-item"
-          style={{ marginBottom: "15px" }}
-        >
-          <a
-            className="wd-assignment-link"
-            href="#/Kanbas/Courses/1234/Assignments/123"
-            style={{
-              textDecoration: "underline",
-            }}
-          >
-            A1 - ENV + HTML
-          </a>
-          <div style={{ width: "420px", marginTop: "5px" }}>
-            Multiple Modules |
-            <span style={{ fontWeight: "bold" }}> Not available until</span> May
-            6 at 12:00am |<span style={{ fontWeight: "bold" }}> Due</span> May
-            13 at 11:59pm | 100 pts
+        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+        Assignment
+      </button>
+      <button
+        id="wd-add-group-btn"
+        className="btn btn-lg btn-secondary me-1 float-end"
+      >
+        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
+        Group
+      </button>
+      <div className="input-group w-25 mb-5">
+        <span className="input-group-text bg-white border-end-0">
+          <IoSearchOutline />
+        </span>
+        <input
+          id="wd-search-assignment"
+          className="form-control border-start-0"
+          placeholder="Search..."
+          style={{
+            padding: "15px",
+            borderRadius: "5px",
+            outline: "none",
+            border: "1px solid #ddd",
+          }}
+        />
+      </div>
+      {/* Assignments */}
+      <ul id="wd-modules" className="list-group rounded-0">
+        <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
+          <div className="wd-title p-3 ps-2 bg-secondary">
+            <BsGripVertical className="me-2 fs-3" /> ASSIGNMENTS{" "}
+            <ModuleControlButtons />
           </div>
-        </li>
 
-        <li
-          className="wd-assignment-list-item"
-          style={{ marginBottom: "15px" }}
-        >
-          <a
-            className="wd-assignment-link"
-            href="#/Kanbas/Courses/1234/Assignments/124"
-            style={{
-              textDecoration: "underline",
-            }}
-          >
-            A2 - CSS + BOOTSTRAP
-          </a>
-          <div style={{ width: "420px", marginTop: "5px" }}>
-            Multiple Modules |
-            <span style={{ fontWeight: "bold" }}> Not available until</span> May
-            13 at 12:00am |<span style={{ fontWeight: "bold" }}> Due</span> May
-            20 at 11:59pm | 100 pts
-          </div>
-        </li>
+          {/* Assignment 1 */}
+          <ul className="wd-lessons list-group rounded-0">
+            <li className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center">
+              {/* Left Section (Icon + Text) */}
+              <div className="d-flex align-items-start">
+                {/* Drag Icon */}
+                <BsGripVertical className="me-2 fs-3" />
+                {/* File Icon */}
+                <AiOutlineFileText className="me-2 text-success fs-5" />
+                {/* Green Border */}
+                <div
+                  className="border-start border-success me-3"
+                  style={{ width: "4px", height: "auto" }}
+                ></div>
+                {/* Text Section */}
+                <div>
+                  <a
+                    className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
+                    href="#/Kanbas/Courses/1234/Assignments/123"
+                  >
+                    <h5 className="mb-1">A1</h5>
+                  </a>
+                  <p className="text-danger mb-0">
+                    Multiple Modules{" "}
+                    <span className="text-dark">
+                      | Not available until May 6 at 12:00am |
+                    </span>
+                  </p>
+                  <p className="text-dark mb-0">
+                    Due May 13 at 11:59pm | 100 pts
+                  </p>
+                </div>
+              </div>
+              {/* Right Section (LessonControlButtons) */}
+              <div className="d-flex align-items-center">
+                <LessonControlButtons />
+              </div>
+            </li>
+          </ul>
 
-        <li
-          className="wd-assignment-list-item"
-          style={{ marginBottom: "15px" }}
-        >
-          <a
-            className="wd-assignment-link"
-            href="#/Kanbas/Courses/1234/Assignments/125"
-            style={{
-              textDecoration: "underline",
-            }}
-          >
-            A3 - JAVASCRIPT + REACT
-          </a>
-          <div style={{ width: "420px", marginTop: "5px" }}>
-            Multiple Modules |
-            <span style={{ fontWeight: "bold" }}> Not available until</span> May
-            20 at 12:00am |<span style={{ fontWeight: "bold" }}> Due</span> May
-            27 at 11:59pm | 100 pts
-          </div>
+          {/* Assignment 2 */}
+          <ul className="wd-lessons list-group rounded-0">
+            <li className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center">
+              {/* Left Section (Icon + Text) */}
+              <div className="d-flex align-items-start">
+                {/* Drag Icon */}
+                <BsGripVertical className="me-2 fs-3" />
+                {/* File Icon */}
+                <AiOutlineFileText className="me-2 text-success fs-5" />
+                {/* Green Border */}
+                <div
+                  className="border-start border-success me-3"
+                  style={{ width: "4px", height: "auto" }}
+                ></div>
+                {/* Text Section */}
+                <div>
+                  <a
+                    className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
+                    href="#/Kanbas/Courses/1234/Assignments/123"
+                  >
+                    <h5 className="mb-1">A2</h5>
+                  </a>
+                  <p className="text-danger mb-0">
+                    Multiple Modules{" "}
+                    <span className="text-dark">
+                      | Not available until May 13 at 12:00am |
+                    </span>
+                  </p>
+                  <p className="text-dark mb-0">
+                    Due May 20 at 11:59pm | 100 pts
+                  </p>
+                </div>
+              </div>
+              {/* Right Section (LessonControlButtons) */}
+              <div className="d-flex align-items-center">
+                <LessonControlButtons />
+              </div>
+            </li>
+          </ul>
+
+          {/* Assignment 3 */}
+          <ul className="wd-lessons list-group rounded-0">
+            <li className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center">
+              {/* Left Section (Icon + Text) */}
+              <div className="d-flex align-items-start">
+                {/* Drag Icon */}
+                <BsGripVertical className="me-2 fs-3" />
+                {/* File Icon */}
+                <AiOutlineFileText className="me-2 text-success fs-5" />
+                {/* Green Border */}
+                <div
+                  className="border-start border-success me-3"
+                  style={{ width: "4px", height: "auto" }}
+                ></div>
+                {/* Text Section */}
+                <div>
+                  <a
+                    className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
+                    href="#/Kanbas/Courses/1234/Assignments/123"
+                  >
+                    <h5 className="mb-1">A3</h5>
+                  </a>
+                  <p className="text-danger mb-0">
+                    Multiple Modules{" "}
+                    <span className="text-dark">
+                      | Not available until May 20 at 12:00am |
+                    </span>
+                  </p>
+                  <p className="text-dark mb-0">
+                    Due May 27 at 11:59pm | 100 pts
+                  </p>
+                </div>
+              </div>
+              {/* Right Section (LessonControlButtons) */}
+              <div className="d-flex align-items-center">
+                <LessonControlButtons />
+              </div>
+            </li>
+          </ul>
         </li>
-      </ul>
+      </ul>{" "}
     </div>
   );
 }

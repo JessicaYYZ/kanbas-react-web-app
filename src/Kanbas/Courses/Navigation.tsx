@@ -1,20 +1,19 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 export default function CoursesNavigation() {
   const location = useLocation();
+  const { cid } = useParams();
 
   // Helper function to check if the link is active
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <div id="wd-courses-navigation" className="wd list-group fs-5 rounded-0">
       <Link
-        to="/Kanbas/Courses/1234/Home"
+        to={`/Kanbas/Courses/${cid}/Home`}
         id="wd-course-home-link"
         className={`list-group-item border border-0 ${
-          isActive("/Kanbas/Courses/1234/Home") ? "active" : "text-danger"
+          isActive(`/Kanbas/Courses/${cid}/Home`) ? "active" : ""
         }`}
         style={{ marginBottom: "-15px" }}
       >
@@ -22,10 +21,10 @@ export default function CoursesNavigation() {
       </Link>
       <br />
       <Link
-        to="/Kanbas/Courses/1234/Modules"
+        to={`/Kanbas/Courses/${cid}/Modules`}
         id="wd-course-modules-link"
         className={`list-group-item border border-0 ${
-          isActive("/Kanbas/Courses/1234/Modules") ? "active" : "text-danger"
+          isActive(`/Kanbas/Courses/${cid}/Modules`) ? "active" : ""
         }`}
         style={{ marginBottom: "-15px" }}
       >
@@ -33,10 +32,10 @@ export default function CoursesNavigation() {
       </Link>
       <br />
       <Link
-        to="/Kanbas/Courses/1234/Piazza"
+        to={`/Kanbas/Courses/${cid}/Piazza`}
         id="wd-course-piazza-link"
         className={`list-group-item border border-0 ${
-          isActive("/Kanbas/Courses/1234/Piazza") ? "active" : "text-danger"
+          isActive(`/Kanbas/Courses/${cid}/Piazza`) ? "active" : ""
         }`}
         style={{ marginBottom: "-15px" }}
       >
@@ -44,10 +43,10 @@ export default function CoursesNavigation() {
       </Link>
       <br />
       <Link
-        to="/Kanbas/Courses/1234/Zoom"
+        to={`/Kanbas/Courses/${cid}/Zoom`}
         id="wd-course-zoom-link"
         className={`list-group-item border border-0 ${
-          isActive("/Kanbas/Courses/1234/Zoom") ? "active" : "text-danger"
+          isActive(`/Kanbas/Courses/${cid}/Zoom`) ? "active" : ""
         }`}
         style={{ marginBottom: "-15px" }}
       >
@@ -55,12 +54,10 @@ export default function CoursesNavigation() {
       </Link>
       <br />
       <Link
-        to="/Kanbas/Courses/1234/Assignments"
+        to={`/Kanbas/Courses/${cid}/Assignments`}
         id="wd-course-assignments-link"
         className={`list-group-item border border-0 ${
-          isActive("/Kanbas/Courses/1234/Assignments")
-            ? "active"
-            : "text-danger"
+          isActive(`/Kanbas/Courses/${cid}/Assignments`) ? "active" : ""
         }`}
         style={{ marginBottom: "-15px" }}
       >
@@ -68,10 +65,10 @@ export default function CoursesNavigation() {
       </Link>
       <br />
       <Link
-        to="/Kanbas/Courses/1234/Quizzes"
+        to={`/Kanbas/Courses/${cid}/Quizzes`}
         id="wd-course-quizzes-link"
         className={`list-group-item border border-0 ${
-          isActive("/Kanbas/Courses/1234/Quizzes") ? "active" : "text-danger"
+          isActive(`/Kanbas/Courses/${cid}/Quizzes`) ? "active" : ""
         }`}
         style={{ marginBottom: "-15px" }}
       >
@@ -79,10 +76,10 @@ export default function CoursesNavigation() {
       </Link>
       <br />
       <Link
-        to="/Kanbas/Courses/1234/People"
+        to={`/Kanbas/Courses/${cid}/People`}
         id="wd-course-people-link"
         className={`list-group-item border border-0 ${
-          isActive("/Kanbas/Courses/1234/People") ? "active" : "text-danger"
+          isActive(`/Kanbas/Courses/${cid}/People`) ? "active" : ""
         }`}
         style={{ marginBottom: "-15px" }}
       >

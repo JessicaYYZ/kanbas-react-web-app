@@ -20,7 +20,7 @@ export default function Dashboard() {
           >
             <Link
               className="text-decoration-none text-dark"
-              to="/Kanbas/Courses/1234/Home"
+              to="/Kanbas/Courses/101/Home"
             >
               <img
                 src="/images/reactjs.jpg"
@@ -29,8 +29,10 @@ export default function Dashboard() {
                 alt="React JS"
               />
               <div className="card-body">
-                <h5 className="card-title">CS1234 React JS</h5>
-                <p className="card-text">Full Stack Software Developer</p>
+                <h5 className="card-title">
+                  CS101 Introduction to Programming
+                </h5>
+                <p className="card-text">Learn the basics of programming</p>
                 <button className="btn btn-primary">Go</button>
               </div>
             </Link>
@@ -45,17 +47,19 @@ export default function Dashboard() {
           >
             <Link
               className="text-decoration-none text-dark"
-              to="/Kanbas/Courses/1234/Home"
+              to="/Kanbas/Courses/102/Home"
             >
               <img
                 src="/images/reactjs.jpg"
                 width="100%"
                 height="160"
-                alt="React JS"
+                alt="Web Development"
               />
               <div className="card-body">
-                <h5 className="card-title">CS1234 React JS</h5>
-                <p className="card-text">Full Stack Software Developer</p>
+                <h5 className="card-title">CS102 Web Development</h5>
+                <p className="card-text">
+                  Building websites and web applications
+                </p>
                 <button className="btn btn-primary">Go</button>
               </div>
             </Link>
@@ -70,17 +74,19 @@ export default function Dashboard() {
           >
             <Link
               className="text-decoration-none text-dark"
-              to="/Kanbas/Courses/1234/Home"
+              to="/Kanbas/Courses/103/Home"
             >
               <img
                 src="/images/reactjs.jpg"
                 width="100%"
                 height="160"
-                alt="React JS"
+                alt="Algorithms"
               />
               <div className="card-body">
-                <h5 className="card-title">CS1234 React JS</h5>
-                <p className="card-text">Full Stack Software Developer</p>
+                <h5 className="card-title">CS103 Algorithms</h5>
+                <p className="card-text">
+                  Understanding data structures and algorithms
+                </p>
                 <button className="btn btn-primary">Go</button>
               </div>
             </Link>
@@ -95,17 +101,17 @@ export default function Dashboard() {
           >
             <Link
               className="text-decoration-none text-dark"
-              to="/Kanbas/Courses/1234/Home"
+              to="/Kanbas/Courses/104/Home"
             >
               <img
                 src="/images/reactjs.jpg"
                 width="100%"
                 height="160"
-                alt="React JS"
+                alt="Databases"
               />
               <div className="card-body">
-                <h5 className="card-title">CS1234 React JS</h5>
-                <p className="card-text">Full Stack Software Developer</p>
+                <h5 className="card-title">CS104 Databases</h5>
+                <p className="card-text">Designing and managing databases</p>
                 <button className="btn btn-primary">Go</button>
               </div>
             </Link>
@@ -120,17 +126,19 @@ export default function Dashboard() {
           >
             <Link
               className="text-decoration-none text-dark"
-              to="/Kanbas/Courses/1234/Home"
+              to="/Kanbas/Courses/105/Home"
             >
               <img
                 src="/images/reactjs.jpg"
                 width="100%"
                 height="160"
-                alt="React JS"
+                alt="Machine Learning"
               />
               <div className="card-body">
-                <h5 className="card-title">CS1234 React JS</h5>
-                <p className="card-text">Full Stack Software Developer</p>
+                <h5 className="card-title">CS105 Machine Learning</h5>
+                <p className="card-text">
+                  Introduction to machine learning algorithms
+                </p>
                 <button className="btn btn-primary">Go</button>
               </div>
             </Link>
@@ -145,17 +153,19 @@ export default function Dashboard() {
           >
             <Link
               className="text-decoration-none text-dark"
-              to="/Kanbas/Courses/1234/Home"
+              to="/Kanbas/Courses/106/Home"
             >
               <img
                 src="/images/reactjs.jpg"
                 width="100%"
                 height="160"
-                alt="React JS"
+                alt="Cloud Computing"
               />
               <div className="card-body">
-                <h5 className="card-title">CS1234 React JS</h5>
-                <p className="card-text">Full Stack Software Developer</p>
+                <h5 className="card-title">CS106 Cloud Computing</h5>
+                <p className="card-text">
+                  Basics of cloud infrastructure and services
+                </p>
                 <button className="btn btn-primary">Go</button>
               </div>
             </Link>
@@ -170,17 +180,19 @@ export default function Dashboard() {
           >
             <Link
               className="text-decoration-none text-dark"
-              to="/Kanbas/Courses/1234/Home"
+              to="/Kanbas/Courses/107/Home"
             >
               <img
                 src="/images/reactjs.jpg"
                 width="100%"
                 height="160"
-                alt="React JS"
+                alt="Cybersecurity"
               />
               <div className="card-body">
-                <h5 className="card-title">CS1234 React JS</h5>
-                <p className="card-text">Full Stack Software Developer</p>
+                <h5 className="card-title">CS107 Cybersecurity</h5>
+                <p className="card-text">
+                  Foundations of cybersecurity and protection
+                </p>
                 <button className="btn btn-primary">Go</button>
               </div>
             </Link>
