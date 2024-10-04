@@ -3,8 +3,8 @@ import { Link, useLocation, useParams } from "react-router-dom";
 export default function CoursesNavigation() {
   const location = useLocation();
   const { cid } = useParams();
+  //test
 
-  // Helper function to check if the link is active
   const isActive = (path: string) => location.pathname === path;
 
   return (
