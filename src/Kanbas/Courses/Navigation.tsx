@@ -4,6 +4,7 @@ export default function CoursesNavigation() {
   const location = useLocation();
   const { cid } = useParams();
   //test
+  //test2
 
   const isActive = (path: string) => location.pathname === path;
 
