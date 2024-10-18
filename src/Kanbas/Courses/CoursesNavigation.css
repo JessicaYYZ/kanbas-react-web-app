@@ -1,0 +1,27 @@
+#wd-courses-navigation {
+  width: 150px;
+}
+
+#wd-courses-navigation .list-group-item {
+  background-color: transparent;
+  color: #dc3545;
+  padding: 10px 16px;
+  font-size: 1.25rem;
+  border: none;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+}
+
+#wd-courses-navigation .list-group-item.active-link {
+  color: black;
+}
+
+#wd-courses-navigation .list-group-item.active-link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: black;
+}

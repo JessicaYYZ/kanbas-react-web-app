@@ -1,13 +1,31 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CiCalendar } from "react-icons/ci";
+import { useParams, Link } from "react-router-dom";
+import * as db from "../../Database";
+
 export default function AssignmentEditor() {
+  const { cid, aid } = useParams();
+  const assignment = db.assignments.find(
+    (a) => a._id === aid && a.course === cid
+  );
+
+  if (!assignment) {
+    return <div>Assignment not found</div>;
+  }
+
   return (
     <div id="wd-assignments-editor" className="me-4">
       <label htmlFor="wd-name" className="form-label">
         Assignment Name
       </label>
-      <input id="wd-name" className="form-control" value="A1 - ENV + HTML" />
+      <input
+        id="wd-name"
+        className="form-control"
+        value={assignment.title}
+        readOnly
+      />
       <br />
+
       <div className="form-control">
         The assignment is <span className="text-danger">available online</span>
         <br />

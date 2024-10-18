@@ -1,12 +1,22 @@
-import { Link } from "react-router-dom";
-import { FaPlus } from "react-icons/fa6";
-import { IoSearchOutline } from "react-icons/io5";
+import React from "react";
 import { BsGripVertical } from "react-icons/bs";
+import { FaPlus } from "react-icons/fa6";
 import LessonControlButtons from "./LessonControlButtons";
 import ModuleControlButtons from "./ModuleControlButtons";
-import { AiOutlineFileText } from "react-icons/ai";
+import { Link, useParams } from "react-router-dom";
+import * as db from "../../Database"; // Assuming assignments are in the database
+import { AiOutlineFileText, AiOutlineCheckCircle } from "react-icons/ai";
+import { IoSearchOutline } from "react-icons/io5";
 
 export default function Assignments() {
+  const { cid } = useParams(); // Get course ID from the URL
+  const assignments = db.assignments; // Get all assignments from the database
+
+  // Filter assignments based on the current course ID
+  const filteredAssignments = assignments.filter(
+    (assignment) => assignment.course === cid
+  );
+
   return (
     <div id="wd-assignments">
       <button
@@ -39,7 +49,8 @@ export default function Assignments() {
           }}
         />
       </div>
-      {/* Assignments */}
+
+      {/* Assignments Section */}
       <ul id="wd-modules" className="list-group rounded-0">
         <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
           <div className="wd-title p-3 ps-2 bg-secondary">
@@ -47,127 +58,50 @@ export default function Assignments() {
             <ModuleControlButtons />
           </div>
 
-          {/* Assignment 1 */}
-          <ul className="wd-lessons list-group rounded-0">
-            <li className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center">
-              {/* Left Section (Icon + Text) */}
-              <div className="d-flex align-items-start">
-                {/* Drag Icon */}
-                <BsGripVertical className="me-2 fs-3" />
-                {/* File Icon */}
-                <AiOutlineFileText className="me-2 text-success fs-5" />
-                {/* Green Border */}
-                <div
-                  className="border-start border-success me-3"
-                  style={{ width: "4px", height: "auto" }}
-                ></div>
-                {/* Text Section */}
-                <div>
-                  <a
-                    className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
-                    href="#/Kanbas/Courses/1234/Assignments/123"
-                  >
-                    <h5 className="mb-1">A1</h5>
-                  </a>
-                  <p className="text-danger mb-0">
-                    Multiple Modules{" "}
-                    <span className="text-dark">
-                      | Not available until May 6 at 12:00am |
-                    </span>
-                  </p>
-                  <p className="text-dark mb-0">
-                    Due May 13 at 11:59pm | 100 pts
-                  </p>
-                </div>
-              </div>
-              {/* Right Section (LessonControlButtons) */}
-              <div className="d-flex align-items-center">
-                <LessonControlButtons />
-              </div>
-            </li>
-          </ul>
+          {/* Render each assignment dynamically */}
+          {filteredAssignments.map((assignment) => (
+            <ul
+              key={assignment._id}
+              className="wd-lessons list-group rounded-0"
+            >
+              <li className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center">
+                <div className="d-flex align-items-start">
+                  <BsGripVertical className="me-2 fs-3" />
+                  <AiOutlineFileText className="me-2 text-success fs-5" />
+                  <div
+                    className="border-start border-success me-3"
+                    style={{ width: "4px", height: "auto" }}
+                  ></div>
 
-          {/* Assignment 2 */}
-          <ul className="wd-lessons list-group rounded-0">
-            <li className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center">
-              {/* Left Section (Icon + Text) */}
-              <div className="d-flex align-items-start">
-                {/* Drag Icon */}
-                <BsGripVertical className="me-2 fs-3" />
-                {/* File Icon */}
-                <AiOutlineFileText className="me-2 text-success fs-5" />
-                {/* Green Border */}
-                <div
-                  className="border-start border-success me-3"
-                  style={{ width: "4px", height: "auto" }}
-                ></div>
-                {/* Text Section */}
-                <div>
-                  <a
-                    className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
-                    href="#/Kanbas/Courses/1234/Assignments/123"
-                  >
-                    <h5 className="mb-1">A2</h5>
-                  </a>
-                  <p className="text-danger mb-0">
-                    Multiple Modules{" "}
-                    <span className="text-dark">
-                      | Not available until May 13 at 12:00am |
-                    </span>
-                  </p>
-                  <p className="text-dark mb-0">
-                    Due May 20 at 11:59pm | 100 pts
-                  </p>
+                  {/* Assignment Info */}
+                  <div>
+                    <Link
+                      to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
+                      className="text-dark fw-bold fs-5 text-decoration-none"
+                    >
+                      {assignment.title}
+                    </Link>
+                    <p className="text-danger mb-0">
+                      {assignment.details}{" "}
+                      <span className="text-dark">
+                        | {assignment.availability}
+                      </span>
+                    </p>
+                    <p className="text-dark mb-0">
+                      Due {assignment.dueDate} | {assignment.points} pts
+                    </p>
+                  </div>
                 </div>
-              </div>
-              {/* Right Section (LessonControlButtons) */}
-              <div className="d-flex align-items-center">
-                <LessonControlButtons />
-              </div>
-            </li>
-          </ul>
 
-          {/* Assignment 3 */}
-          <ul className="wd-lessons list-group rounded-0">
-            <li className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center">
-              {/* Left Section (Icon + Text) */}
-              <div className="d-flex align-items-start">
-                {/* Drag Icon */}
-                <BsGripVertical className="me-2 fs-3" />
-                {/* File Icon */}
-                <AiOutlineFileText className="me-2 text-success fs-5" />
-                {/* Green Border */}
-                <div
-                  className="border-start border-success me-3"
-                  style={{ width: "4px", height: "auto" }}
-                ></div>
-                {/* Text Section */}
-                <div>
-                  <a
-                    className="wd-assignment-link text-dark fw-bold fs-5 text-decoration-none"
-                    href="#/Kanbas/Courses/1234/Assignments/123"
-                  >
-                    <h5 className="mb-1">A3</h5>
-                  </a>
-                  <p className="text-danger mb-0">
-                    Multiple Modules{" "}
-                    <span className="text-dark">
-                      | Not available until May 20 at 12:00am |
-                    </span>
-                  </p>
-                  <p className="text-dark mb-0">
-                    Due May 27 at 11:59pm | 100 pts
-                  </p>
+                {/* Right Section (Check Mark + Control Buttons) */}
+                <div className="d-flex align-items-center">
+                  <LessonControlButtons />
                 </div>
-              </div>
-              {/* Right Section (LessonControlButtons) */}
-              <div className="d-flex align-items-center">
-                <LessonControlButtons />
-              </div>
-            </li>
-          </ul>
+              </li>
+            </ul>
+          ))}
         </li>
-      </ul>{" "}
+      </ul>
     </div>
   );
 }
