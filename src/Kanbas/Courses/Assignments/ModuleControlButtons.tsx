@@ -16,7 +16,7 @@ export default function LessonControlButtons() {
         40% of Total
       </button>
 
-      <BsPlus className="fs-3" />
+      <BsPlus className="ms-1 fs-3" />
       <IoEllipsisVertical className="fs-4" />
     </div>
   );

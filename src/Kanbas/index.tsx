@@ -1,7 +1,7 @@
 import { Routes, Route, Navigate } from "react-router";
 
 import Account from "./Account";
-import Dashboard from "./Dashboard";
+import Dashboard from "./Dashboard/index";
 import KanbasNavigation from "./Navigation";
 import Courses from "./Courses";
 
@@ -13,6 +13,7 @@ import Assignments from "./Courses/Assignments";
 import ProtectedRoute from "./Account/ProtectedRoute";
 
 import { useSelector } from "react-redux";
+import React from "react";
 
 export default function Kanbas() {
   const { currentUser } = useSelector((state: any) => state.accountReducer);

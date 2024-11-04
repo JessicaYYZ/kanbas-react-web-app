@@ -1,106 +1,74 @@
-import React from "react";
-import { BsGripVertical } from "react-icons/bs";
-import { FaPlus } from "react-icons/fa6";
+import AssignmentControls from "./AssignmentControls";
 import LessonControlButtons from "./LessonControlButtons";
 import ModuleControlButtons from "./ModuleControlButtons";
+import { BsGripVertical } from "react-icons/bs";
+import { MdOutlineDocumentScanner } from "react-icons/md";
 import { Link, useParams } from "react-router-dom";
-import * as db from "../../Database"; // Assuming assignments are in the database
-import { AiOutlineFileText, AiOutlineCheckCircle } from "react-icons/ai";
-import { IoSearchOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 export default function Assignments() {
-  const { cid } = useParams(); // Get course ID from the URL
-  const assignments = db.assignments; // Get all assignments from the database
-
-  // Filter assignments based on the current course ID
-  const filteredAssignments = assignments.filter(
-    (assignment) => assignment.course === cid
-  );
+  const { cid } = useParams();
+  const { assignments } = useSelector((state: any) => state.assignmentsReducer);
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
 
   return (
-    <div id="wd-assignments">
-      <button
-        id="wd-add-assignemnt-btn"
-        className="btn btn-lg btn-danger me-1 float-end "
-      >
-        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Assignment
-      </button>
-      <button
-        id="wd-add-group-btn"
-        className="btn btn-lg btn-secondary me-1 float-end"
-      >
-        <FaPlus className="position-relative me-2" style={{ bottom: "1px" }} />
-        Group
-      </button>
-      <div className="input-group w-25 mb-5">
-        <span className="input-group-text bg-white border-end-0">
-          <IoSearchOutline />
-        </span>
-        <input
-          id="wd-search-assignment"
-          className="form-control border-start-0"
-          placeholder="Search..."
-          style={{
-            padding: "15px",
-            borderRadius: "5px",
-            outline: "none",
-            border: "1px solid #ddd",
-          }}
-        />
-      </div>
-
-      {/* Assignments Section */}
-      <ul id="wd-modules" className="list-group rounded-0">
-        <li className="wd-module list-group-item p-0 mb-5 fs-5 border-gray">
-          <div className="wd-title p-3 ps-2 bg-secondary">
-            <BsGripVertical className="me-2 fs-3" /> ASSIGNMENTS{" "}
-            <ModuleControlButtons />
+    <div id="wd-assignments" className="container mt-4">
+      {currentUser.role === "FACULTY" && (
+        <div>
+          <AssignmentControls />
+        </div>
+      )}
+      <ul id="wd-assignments" className="list-group rounded-0 ms-4 me-3 mt-4">
+        <div className="wd-title p-3 ps-2 bg-secondary d-flex justify-content-between align-items-center">
+          <div className="d-flex align-items-center">
+            <BsGripVertical className="fs-3 me-2" />
+            <strong>ASSIGNMENTS</strong>
           </div>
 
-          {/* Render each assignment dynamically */}
-          {filteredAssignments.map((assignment) => (
-            <ul
-              key={assignment._id}
-              className="wd-lessons list-group rounded-0"
-            >
-              <li className="wd-lesson list-group-item p-3 ps-1 d-flex justify-content-between align-items-center">
-                <div className="d-flex align-items-start">
-                  <BsGripVertical className="me-2 fs-3" />
-                  <AiOutlineFileText className="me-2 text-success fs-5" />
-                  <div
-                    className="border-start border-success me-3"
-                    style={{ width: "4px", height: "auto" }}
-                  ></div>
+          {currentUser.role === "FACULTY" && (
+            <div className="d-flex align-items-center">
+              <ModuleControlButtons />
+            </div>
+          )}
+        </div>
 
-                  {/* Assignment Info */}
-                  <div>
+        {assignments
+          .filter((assignment: any) => assignment.course === cid)
+          .map((assignment: any) => (
+            <ul className="wd-assignments list-group rounded-0">
+              <li className="wd-assignments list-group-item ps-1 fs-5 border-gray">
+                <div className="d-flex align-items-center">
+                  <BsGripVertical className="me-2 fs-2" />
+                  <MdOutlineDocumentScanner className="fs-2" />
+                  <div className="mt-2 mb-2 flex-grow-1">
                     <Link
                       to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
-                      className="text-dark fw-bold fs-5 text-decoration-none"
+                      className="text-black text-decoration-none"
                     >
-                      {assignment.title}
+                      <ul>
+                        <strong>{assignment.title}</strong>
+                      </ul>
                     </Link>
-                    <p className="text-danger mb-0">
-                      {assignment.details}{" "}
-                      <span className="text-dark">
-                        | {assignment.availability}
-                      </span>
-                    </p>
-                    <p className="text-dark mb-0">
-                      Due {assignment.dueDate} | {assignment.points} pts
-                    </p>
+                    <ul className="wd-assignment-description">
+                      <span className="text-danger">Multiple Modules </span>|{" "}
+                      <strong> Not Available until</strong>{" "}
+                      {assignment.availableFrom} at 12:00am |{" "}
+                    </ul>
+                    <ul className="wd-assignment-description">
+                      {" "}
+                      <strong>Due </strong> {assignment.due} at 11:59pm |&nbsp;
+                      {assignment.points} pts{" "}
+                    </ul>
                   </div>
-                </div>
-
-                {/* Right Section (Check Mark + Control Buttons) */}
-                <div className="d-flex align-items-center">
-                  <LessonControlButtons />
+                  {currentUser.role === "FACULTY" && (
+                    <>
+                      <LessonControlButtons assignmentID={assignment._id} />
+                    </>
+                  )}
                 </div>
               </li>
             </ul>
           ))}
-        </li>
       </ul>
     </div>
   );
