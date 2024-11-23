@@ -3,17 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { setCurrentUser } from "./reducer";
 import { useDispatch } from "react-redux";
 import * as db from "../Database";
+import * as client from "./client";
 
 export default function Signin() {
   const [credentials, setCredentials] = useState<any>({});
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const signin = () => {
-    const user = db.users.find(
-      (u: any) =>
-        u.username === credentials.username &&
-        u.password === credentials.password
-    );
+  const signin = async () => {
+    const user = await client.signin(credentials);
     if (!user) return;
     dispatch(setCurrentUser(user));
     navigate("/Kanbas/Dashboard");
@@ -29,7 +26,7 @@ export default function Signin() {
         }
         id="wd-username"
         placeholder="username"
-        className="form-control mb-2"
+        className="form-control"
       />
       <br />
       <input
@@ -40,7 +37,7 @@ export default function Signin() {
         id="wd-password"
         placeholder="password"
         type="password"
-        className="form-control mb-2"
+        className="form-control"
       />
       <br />
       <button

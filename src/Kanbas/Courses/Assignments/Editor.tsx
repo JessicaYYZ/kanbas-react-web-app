@@ -7,38 +7,52 @@ import {
   switchCreationStatus,
   deleteAssignment,
 } from "./reducer";
+import * as client from "./client";
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams();
+
   const { assignments, new_assignment_created } = useSelector(
     (state: any) => state.assignmentsReducer
   );
+
   const assignment = assignments.find(
     (assignment: any) => assignment._id === aid
   );
+
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState(assignment && assignment.title);
+
   const [description, setDescription] = useState(
     assignment && assignment.description
   );
+
   const [points, setPoints] = useState(assignment && assignment.points);
+
   const [due, setDue] = useState(assignment && assignment.due);
+
   const [availableFrom, setAvailableFrom] = useState(
     assignment && assignment.availableFrom
   );
+
   const [until, setUntil] = useState(assignment && assignment.until);
 
   const { currentUser } = useSelector((state: any) => state.accountReducer);
 
-  const cancelByStatus = () => {
-    if (new_assignment_created === true) {
-      dispatch(deleteAssignment(aid));
-      dispatch(switchCreationStatus());
+  const cancelByStatus = async () => {
+    if (new_assignment_created) {
+      try {
+        await client.deleteAssignment(aid as string);
+        dispatch(deleteAssignment(aid));
+        dispatch(switchCreationStatus());
+      } catch (error) {
+        console.error("Failed to delete assignment:", error);
+      }
     }
   };
 
-  const saveByStatus = () => {
+  const saveByStatus = async () => {
     const currentAssignment = {
       _id: aid,
       title: title,
@@ -50,10 +64,17 @@ export default function AssignmentEditor() {
       until: until,
     };
 
-    if (new_assignment_created === true) {
-      dispatch(switchCreationStatus());
+    try {
+      if (new_assignment_created) {
+        await client.createAssignment(cid as string, currentAssignment);
+        dispatch(switchCreationStatus());
+      } else {
+        await client.updateAssignment(aid as string, currentAssignment);
+      }
+      dispatch(updateAssignment(currentAssignment));
+    } catch (error) {
+      console.error("Failed to save assignment:", error);
     }
-    dispatch(updateAssignment(currentAssignment));
   };
 
   return (

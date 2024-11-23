@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { enroll, unenroll } from "./reducer";
+import { enroll, unenroll, toggleAllCourses } from "./reducer";
+import * as client from "../Courses/Enrollments/client";
 
 export default function Dashboard({
   courses,
@@ -20,10 +21,13 @@ export default function Dashboard({
 }) {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
-  const { enrollments } = useSelector((state: any) => state.enrollmentReducer);
-  const [showAllCourses, setShowAllCourses] = useState(false);
+  const { enrollments, showAllCourses } = useSelector(
+    (state: any) => state.enrollmentReducer
+  );
 
-  const toggleEnrollments = () => setShowAllCourses(!showAllCourses);
+  const toggleEnrollments = () => {
+    dispatch(toggleAllCourses());
+  };
 
   const isEnrolled = (courseId: string) =>
     enrollments.some(
@@ -31,16 +35,26 @@ export default function Dashboard({
         enrollment.user === currentUser._id && enrollment.course === courseId
     );
 
-  const filteredCourse = showAllCourses
+  const filteredCourses = showAllCourses
     ? courses
     : courses.filter((course) => isEnrolled(course._id));
 
-  const handleEnroll = (courseId: string) => {
-    dispatch(enroll({ userId: currentUser._id, courseId }));
+  const handleEnroll = async (courseId: string) => {
+    try {
+      await client.enrollInCourse(courseId);
+      dispatch(enroll({ userId: currentUser._id, courseId }));
+    } catch (error) {
+      console.error("Failed to enroll:", error);
+    }
   };
 
-  const handleUnenroll = (courseId: string) => {
-    dispatch(unenroll({ userId: currentUser._id, courseId }));
+  const handleUnenroll = async (courseId: string) => {
+    try {
+      await client.unenrollFromCourse(courseId);
+      dispatch(unenroll({ userId: currentUser._id, courseId }));
+    } catch (error) {
+      console.error("Failed to unenroll:", error);
+    }
   };
 
   return (
@@ -55,8 +69,7 @@ export default function Dashboard({
               id="wd-add-new-course-click"
               onClick={addNewCourse}
             >
-              {" "}
-              Add{" "}
+              Add
             </button>
             <button
               className="btn btn-warning float-end me-2"
@@ -90,13 +103,11 @@ export default function Dashboard({
           {showAllCourses ? "My Enrollments" : "All Courses"}
         </button>
       )}
-      <h2 id="wd-dashboard-published">
-        Published Courses ({filteredCourse.length})
-      </h2>{" "}
+      <h2 id="wd-dashboard-published">Published Courses ({courses.length})</h2>
       <hr />
       <div id="wd-dashboard-courses" className="row">
         <div className="row row-cols-1 row-cols-md-5 g-4">
-          {filteredCourse.map((course) => (
+          {filteredCourses.map((course) => (
             <div key={course._id} className="col" style={{ width: "300px" }}>
               <Link
                 to={
@@ -111,10 +122,14 @@ export default function Dashboard({
                     src={
                       course.image && course.image !== ""
                         ? course.image
-                        : `/images/${course._id}.png`
+                        : `${process.env.PUBLIC_URL}/images/${course._id}.png`
                     }
-                    height="{160}"
-                    alt=""
+                    height={160}
+                    className="card-img-top"
+                    alt={course.name}
+                    onError={(e) => {
+                      e.currentTarget.src = `${process.env.PUBLIC_URL}/images/default-course.png`;
+                    }}
                   />
                   <div className="card-body">
                     <span

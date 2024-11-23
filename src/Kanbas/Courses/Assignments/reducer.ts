@@ -1,8 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { assignments } from "../../Database";
+import * as client from "./client";
+
+interface Assignment {
+  _id: string;
+  title: string;
+  course: string;
+  description: string;
+  points: number;
+  due: string;
+  availableFrom: string;
+  availableUntil?: string;
+  until?: string;
+}
 
 const initialState = {
-  assignments: assignments,
+  assignments: [] as Assignment[],
   new_assignment_created: false,
 };
 
@@ -10,44 +22,31 @@ const assignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
-    addAssignment: (state, { payload: assignment }) => {
-      const newAssignment: any = {
-        _id: assignment._id,
-        title: assignment.title,
-        course: assignment.course,
-        description: assignment.description,
-        points: assignment.points,
-        due: assignment.due,
-        availableFrom: assignment.availableFrom,
-        until: assignment.until,
-      };
-      state.assignments = [...state.assignments, newAssignment] as any;
+    setAssignments: (state, action) => {
+      state.assignments = action.payload;
+    },
+    addAssignment: (state, action) => {
+      state.assignments = [...state.assignments, action.payload];
       state.new_assignment_created = true;
     },
-
-    updateAssignment: (state, { payload: assignment }) => {
-      state.assignments = state.assignments.map((a: any) =>
-        a._id === assignment._id ? assignment : a
-      ) as any;
+    updateAssignment: (state, action) => {
+      state.assignments = state.assignments.map((a) =>
+        a._id === action.payload._id ? action.payload : a
+      );
     },
-
-    deleteAssignment: (state, { payload: assignmentID }) => {
+    deleteAssignment: (state, action) => {
       state.assignments = state.assignments.filter(
-        (a: any) => a._id !== assignmentID
-      ) as any;
+        (a) => a._id !== action.payload
+      );
     },
-
     switchCreationStatus: (state) => {
-      if (state.new_assignment_created === true) {
-        state.new_assignment_created = false;
-      } else {
-        state.new_assignment_created = true;
-      }
+      state.new_assignment_created = !state.new_assignment_created;
     },
   },
 });
 
 export const {
+  setAssignments,
   addAssignment,
   updateAssignment,
   deleteAssignment,
