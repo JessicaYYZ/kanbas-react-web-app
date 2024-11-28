@@ -29,10 +29,12 @@ export default function Kanbas() {
 
   const addNewCourse = () => {
     if (currentUser.role === "FACULTY") {
-      setCourses([
-        ...courses,
-        { ...course, _id: new Date().getTime().toString() },
-      ]);
+      const newCourse = { ...course, _id: new Date().getTime().toString() };
+      setCourses((prevCourses) => {
+        const updatedCourses = [...prevCourses, newCourse];
+        console.log("Updated Courses:", updatedCourses); // Debugging line
+        return updatedCourses;
+      });
     }
   };
 
