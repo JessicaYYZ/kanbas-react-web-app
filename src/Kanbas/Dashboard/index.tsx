@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { enroll, unenroll, toggleAllCourses } from "./reducer";
@@ -24,6 +24,10 @@ export default function Dashboard({
   const { enrollments, showAllCourses } = useSelector(
     (state: any) => state.enrollmentReducer
   );
+
+  useEffect(() => {
+    console.log("Courses updated:", courses);
+  }, [courses]);
 
   const toggleEnrollments = () => {
     dispatch(toggleAllCourses());
@@ -59,7 +63,8 @@ export default function Dashboard({
 
   return (
     <div className="p-4" id="wd-dashboard">
-      <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
+      <h1 id="wd-dashboard-title">Dashboard</h1>
+      <hr />
       {currentUser.role === "FACULTY" && (
         <>
           <h5>
@@ -81,12 +86,12 @@ export default function Dashboard({
           </h5>
           <br />
           <input
-            defaultValue={course.name}
+            value={course.name}
             className="form-control mb-2"
             onChange={(e) => setCourse({ ...course, name: e.target.value })}
           />
           <textarea
-            defaultValue={course.description}
+            value={course.description}
             className="form-control"
             onChange={(e) =>
               setCourse({ ...course, description: e.target.value })
@@ -188,6 +193,7 @@ export default function Dashboard({
                           id="wd-edit-course-click"
                           onClick={(event) => {
                             event.preventDefault();
+                            event.stopPropagation();
                             setCourse(course);
                           }}
                           className="btn btn-warning me-2 float-end"
