@@ -41,6 +41,18 @@ export default function AccountNavigation() {
       >
         Profile
       </Link>
+      <br />
+
+      <Link
+        to={`/Kanbas/Account/Users`}
+        id="wd-users-link"
+        className={`list-group-item border border-0 ${
+          isActive(`/Kanbas/Account/Users`) ? "active" : ""
+        }`}
+        style={{ marginBottom: "-15px" }}
+      >
+        Users
+      </Link>
     </div>
   );
 }

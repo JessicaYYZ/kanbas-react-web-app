@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import * as client from "./client";
 import { useSelector } from "react-redux";
+import PeopleDetails from "./Details";
 
-export default function PeopleTable() {
+export default function PeopleTable({ users = [] }: { users?: any[] }) {
   const { cid } = useParams();
-  const [users, setUsers] = useState([]);
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const [newUser, setNewUser] = useState({
     firstName: "",
@@ -15,20 +15,10 @@ export default function PeopleTable() {
     role: "STUDENT",
   });
 
-  const fetchUsers = async () => {
-    try {
-      const users = await client.findUsersInCourse(cid as string);
-      setUsers(users);
-    } catch (error) {
-      console.error("Failed to fetch users:", error);
-    }
-  };
-
   const addUser = async () => {
     if (currentUser.role !== "FACULTY") return;
     try {
       await client.addUserToCourse(cid as string, newUser);
-      fetchUsers();
       setNewUser({ firstName: "", lastName: "", email: "", role: "STUDENT" });
     } catch (error) {
       console.error("Failed to add user:", error);
@@ -39,21 +29,17 @@ export default function PeopleTable() {
     if (currentUser.role !== "FACULTY") return;
     try {
       await client.removeUserFromCourse(cid as string, enrollmentId);
-      fetchUsers();
     } catch (error) {
       console.error("Failed to remove user:", error);
     }
   };
 
-  useEffect(() => {
-    fetchUsers();
-  }, [cid]);
-
   return (
     <div id="wd-people-table">
+      <PeopleDetails />
       {currentUser.role === "FACULTY" && (
         <div className="mb-3">
-          <h3>Add New User</h3>
+          <h5>Add New User</h5>
           <input
             placeholder="First Name"
             className="form-control mb-2"
@@ -104,9 +90,14 @@ export default function PeopleTable() {
           {users.map((user: any) => (
             <tr key={user.enrollmentId}>
               <td className="wd-full-name text-nowrap">
-                <FaUserCircle className="me-2 fs-1 text-secondary" />
-                <span className="wd-first-name">{user.firstName}</span>
-                <span className="wd-last-name">{user.lastName}</span>
+                <Link
+                  to={`/Kanbas/Account/Users/${user._id}`}
+                  className="text-decoration-none"
+                >
+                  <FaUserCircle className="me-2 fs-1 text-secondary" />
+                  <span className="wd-first-name">{user.firstName}</span>
+                  <span className="wd-last-name">{user.lastName}</span>
+                </Link>
               </td>
               <td className="wd-role">{user.role}</td>
               <td className="wd-last-activity">{user.lastActivity}</td>
