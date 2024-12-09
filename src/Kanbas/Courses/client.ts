@@ -5,7 +5,7 @@ const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 
 export const createModuleForCourse = async (courseId: string, module: any) => {
   try {
-    const response = await axios.post(
+    const response = await axiosWithCredentials.post(
       `${COURSES_API}/${courseId}/modules`,
       module
     );
@@ -38,7 +38,9 @@ export const createCourse = async (course: any) => {
 
 export const findModulesForCourse = async (courseId: string) => {
   try {
-    const response = await axios.get(`${COURSES_API}/${courseId}/modules`);
+    const response = await axiosWithCredentials.get(
+      `${COURSES_API}/${courseId}/modules`
+    );
     return response.data;
   } catch (error) {
     console.error("Failed to fetch modules for course:", error);
@@ -67,4 +69,9 @@ export const updateCourse = async (course: any) => {
     console.error("Failed to update course:", error);
     throw error;
   }
+};
+
+export const findUsersForCourse = async (courseId: string) => {
+  const response = await axios.get(`${COURSES_API}/${courseId}/users`);
+  return response.data;
 };

@@ -10,15 +10,6 @@ export default function PeopleDetails() {
 
   const [editing, setEditing] = useState(false);
 
-  const saveUser = async () => {
-    const [firstName, lastName] = name.split(" ");
-    const updatedUser = { ...user, firstName, lastName };
-    await client.updateUser(updatedUser);
-    setUser(updatedUser);
-    setEditing(false);
-    navigate(-1);
-  };
-
   const { uid } = useParams();
 
   const [user, setUser] = useState<any>({});
@@ -27,6 +18,15 @@ export default function PeopleDetails() {
 
   const deleteUser = async (uid: string) => {
     await client.deleteUser(uid);
+    navigate(-1);
+  };
+
+  const saveUser = async () => {
+    const [firstName, lastName] = name.split(" ");
+    const updatedUser = { ...user, firstName, lastName };
+    await client.updateUser(updatedUser);
+    setUser(updatedUser);
+    setEditing(false);
     navigate(-1);
   };
 
