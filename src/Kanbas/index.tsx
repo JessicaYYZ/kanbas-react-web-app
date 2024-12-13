@@ -27,15 +27,19 @@ export default function Kanbas() {
 
   const fetchCourses = async () => {
     try {
+      if (!currentUser) {
+        console.log("No user logged in");
+        return;
+      }
       const courses = await userClient.findMyCourses();
       setCourses(courses);
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching courses:", error);
     }
   };
   useEffect(() => {
     fetchCourses();
-  }, [currentUser]);
+  }, [currentUser, courses.length]);
 
   const [course, setCourse] = useState<any>({
     _id: "1234",
@@ -47,12 +51,21 @@ export default function Kanbas() {
   });
 
   const addNewCourse = async () => {
-    const newCourse = await userClient.createCourse(course);
-    setCourses((prevCourses) => {
-      const updatedCourses = [...prevCourses, newCourse];
-      console.log("Updated Courses:", updatedCourses); // Debugging line
-      return updatedCourses;
-    });
+    try {
+      const newCourse = await userClient.createCourse(course);
+      setCourses((prevCourses) => [...prevCourses, newCourse]);
+      // Reset the course form
+      setCourse({
+        _id: new Date().getTime().toString(),
+        name: "New Course",
+        number: "New Number",
+        startDate: "2023-09-10",
+        endDate: "2023-12-15",
+        description: "New Description",
+      });
+    } catch (error) {
+      console.error("Error adding new course:", error);
+    }
   };
 
   const deleteCourse = async (courseId: string) => {
